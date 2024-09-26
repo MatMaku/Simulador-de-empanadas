@@ -1,0 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MiniJuego1 : MonoBehaviour
+{
+    public Slider cuttingProgressBar;
+    public GameObject PushButton;
+    public TextMeshProUGUI PushButtonText;
+    public float progressPerPress = 0.1f;
+    private bool isCutting = false;
+    public FirsPersonController playerController;
+    public ObjectInteraction objectInteraction;
+
+    private KeyCode selectedKey;
+
+    private List<KeyCode> possibleKeys = new List<KeyCode>
+    {
+        KeyCode.A, KeyCode.W, KeyCode.S, KeyCode.D, KeyCode.Q, KeyCode.R, KeyCode.F
+    };
+
+    void Update()
+    {
+        if (isCutting)
+        {
+            // Aumentar la barra solo cuando se pulsa la tecla "E"
+            if (Input.GetKeyDown(selectedKey))
+            {
+                cuttingProgressBar.value += progressPerPress;
+            }
+
+            // Asegurarse de que el valor no exceda el máximo
+            cuttingProgressBar.value = Mathf.Clamp(cuttingProgressBar.value, 0f, cuttingProgressBar.maxValue);
+
+            // Comprobar si la barra está completamente llena
+            if (cuttingProgressBar.value >= cuttingProgressBar.maxValue)
+            {
+                CompleteCutting();
+            }
+        }
+    }
+
+    public void StartCuttingMinigame()
+    {
+        selectedKey = possibleKeys[Random.Range(0, possibleKeys.Count)];
+        PushButtonText.text = selectedKey.ToString();
+
+        isCutting = true;
+        PushButton.SetActive(true);
+        cuttingProgressBar.gameObject.SetActive(true);
+        cuttingProgressBar.value = 0;
+
+        playerController.enabled = false;
+
+        PulseEffect pulseEffect = PushButton.GetComponent<PulseEffect>();
+        pulseEffect.StartPulse();
+    }
+
+    private void CompleteCutting()
+    {
+        isCutting = false;
+        PushButton.SetActive(false);
+        cuttingProgressBar.gameObject.SetActive(false);
+
+        playerController.enabled = true;
+        objectInteraction.Interacting = false;
+
+        PulseEffect pulseEffect = PushButton.GetComponent<PulseEffect>();
+        pulseEffect.StopPulse();
+
+        Debug.Log("Corte completado!");
+    }
+}
