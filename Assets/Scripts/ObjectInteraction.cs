@@ -56,7 +56,26 @@ public class ObjectInteraction : MonoBehaviour
     void InteractWithObject(GameObject interactableObject)
     {
         Interacting = true;
+
         MiniJuego1 miniJuego1 = interactableObject.GetComponent<MiniJuego1>();
-        miniJuego1.StartCuttingMinigame();
+        if (miniJuego1 != null)
+        {
+            miniJuego1.StartCuttingMinigame();
+            return;
+        }
+
+        MiniJuego2 miniJuego2 = interactableObject.GetComponent<MiniJuego2>();
+        if (miniJuego2 != null)
+        {
+            miniJuego2.StartMinigame();
+            return;
+        }
+
+        MiniJuego3 miniJuego3 = interactableObject.GetComponent<MiniJuego3>();
+        if (miniJuego3 != null)
+        {
+            miniJuego3.StartMinigame();
+            return;
+        }
     }
 }
