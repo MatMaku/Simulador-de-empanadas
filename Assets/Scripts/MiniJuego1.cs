@@ -6,13 +6,15 @@ using UnityEngine.UI;
 
 public class MiniJuego1 : MonoBehaviour
 {
+    public FirsPersonController playerController;
+    public ObjectInteraction objectInteraction;
+    public ItemHandler itemHandler;
+
     public Slider cuttingProgressBar;
     public GameObject PushButton;
     public TextMeshProUGUI PushButtonText;
     public float progressPerPress = 0.1f;
     private bool isCutting = false;
-    public FirsPersonController playerController;
-    public ObjectInteraction objectInteraction;
 
     private KeyCode selectedKey;
 
@@ -37,12 +39,12 @@ public class MiniJuego1 : MonoBehaviour
             // Comprobar si la barra está completamente llena
             if (cuttingProgressBar.value >= cuttingProgressBar.maxValue)
             {
-                CompleteCutting();
+                MinigameComplete();
             }
         }
     }
 
-    public void StartCuttingMinigame()
+    public void StartMinigame()
     {
         selectedKey = possibleKeys[Random.Range(0, possibleKeys.Count)];
         PushButtonText.text = selectedKey.ToString();
@@ -58,7 +60,7 @@ public class MiniJuego1 : MonoBehaviour
         pulseEffect.StartPulse();
     }
 
-    private void CompleteCutting()
+    private void MinigameComplete()
     {
         isCutting = false;
         PushButton.SetActive(false);
@@ -71,5 +73,17 @@ public class MiniJuego1 : MonoBehaviour
         pulseEffect.StopPulse();
 
         Debug.Log("Corte completado!");
+
+        if (itemHandler.HasCarne())
+        {
+            itemHandler.DiscardItem();
+            itemHandler.PickUpCarnePicada();
+        }
+
+        if (itemHandler.HasMasa())
+        {
+            itemHandler.DiscardItem();
+            itemHandler.PickPlanchaMasa();
+        }
     }
 }

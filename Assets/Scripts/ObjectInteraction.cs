@@ -6,39 +6,45 @@ using UnityEngine.UI;
 
 public class ObjectInteraction : MonoBehaviour
 {
-    public float interactionDistance = .6f; // Distancia máxima para interactuar
-    public LayerMask interactableLayer; // Capas a las que pertenecen los objetos interactivos
-    public TextMeshProUGUI objectNameText; // UI para mostrar el nombre del objeto
-    public GameObject interactIcon; // Icono de la tecla "E"
+    public float interactionDistance = 0.6f;
+    public LayerMask interactableLayer;
+    public TextMeshProUGUI objectNameText;
+    public GameObject interactIcon;
     public bool Interacting = false;
 
     private Camera playerCamera;
-    private FirsPersonController firsPersonController;
+    private ItemHandler itemHandler;
+
+    public bool CarneOnTable = false;
+    public bool TapasOnTable = false;
+    public bool MesaLista = false;
 
     void Start()
     {
-        firsPersonController = GetComponent<FirsPersonController>();
         playerCamera = Camera.main;
         objectNameText.gameObject.SetActive(false);
         interactIcon.SetActive(false);
+        itemHandler = GetComponent<ItemHandler>();
     }
 
     void Update()
     {
+        if (CarneOnTable && TapasOnTable)
+        {
+            MesaLista = true;
+        }
+
         Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
-        // Detectar si el raycast impacta en un objeto interactivo
         if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer) && !Interacting)
         {
             if (hit.collider.CompareTag("Interactuable"))
             {
-                // Mostrar nombre del objeto y el ícono de "E"
-                objectNameText.text = hit.collider.gameObject.name; // Asumimos que el nombre del objeto es su nombre en la escena
+                objectNameText.text = hit.collider.gameObject.name;
                 objectNameText.gameObject.SetActive(true);
                 interactIcon.SetActive(true);
 
-                // Si el jugador presiona "E", llamamos al método de interacción
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     InteractWithObject(hit.collider.gameObject);
@@ -47,7 +53,6 @@ public class ObjectInteraction : MonoBehaviour
         }
         else
         {
-            // Ocultar los indicadores si no hay ningún objeto interactivo en el centro de la cámara
             objectNameText.gameObject.SetActive(false);
             interactIcon.SetActive(false);
         }
@@ -55,26 +60,73 @@ public class ObjectInteraction : MonoBehaviour
 
     void InteractWithObject(GameObject interactableObject)
     {
-        Interacting = true;
-
-        MiniJuego1 miniJuego1 = interactableObject.GetComponent<MiniJuego1>();
-        if (miniJuego1 != null)
+        if (interactableObject.name == "Heladera")
         {
-            miniJuego1.StartCuttingMinigame();
+            itemHandler.PickUpCarne();
             return;
         }
 
-        MiniJuego2 miniJuego2 = interactableObject.GetComponent<MiniJuego2>();
-        if (miniJuego2 != null)
+        if (interactableObject.name == "Bollos de masa")
         {
+            itemHandler.PickUpMasa();
+            return;
+        }
+
+        if (interactableObject.name == "Basura")
+        {
+            itemHandler.DiscardItem();
+            return;
+        }
+        
+        if (interactableObject.name == "Tabla de cortar" && itemHandler.HasCarne())
+        {
+            Interacting = true;
+            MiniJuego1 miniJuego1 = interactableObject.GetComponent<MiniJuego1>();
+            miniJuego1.StartMinigame();
+            return;
+        }
+
+        if (interactableObject.name == "Tabla de amasar" && itemHandler.HasMasa())
+        {
+            Interacting = true;
+            MiniJuego1 miniJuego1 = interactableObject.GetComponent<MiniJuego1>();
+            miniJuego1.StartMinigame();
+            return;
+        }
+
+        if (interactableObject.name == "Cortadora de masa" && itemHandler.HasPlanchaMasa())
+        {
+            Interacting = true;
+            MiniJuego2 miniJuego2 = interactableObject.GetComponent<MiniJuego2>();
             miniJuego2.StartMinigame();
             return;
         }
 
-        MiniJuego3 miniJuego3 = interactableObject.GetComponent<MiniJuego3>();
-        if (miniJuego3 != null)
+        if (interactableObject.name == "Mesa de preparado" && itemHandler.HasCarnePicada() && !CarneOnTable)
         {
+            itemHandler.PlaceCarnePicadaOnTable(interactableObject.transform);
+            CarneOnTable = true;
+            return;
+        }
+
+        if (interactableObject.name == "Mesa de preparado" && itemHandler.HasTapas() && !TapasOnTable)
+        {
+            itemHandler.PlaceTapasOnTable(interactableObject.transform);
+            TapasOnTable = true;
+            return;
+        }
+
+        if (interactableObject.name == "Mesa de preparado" && MesaLista)
+        {
+            Interacting = true;
+            MiniJuego3 miniJuego3 = interactableObject.GetComponent<MiniJuego3>();
             miniJuego3.StartMinigame();
+            return;
+        }
+
+        if (interactableObject.name == "Cliente" && itemHandler.HasEmpanadas())
+        {
+            itemHandler.GiveEmpanadas();
             return;
         }
     }

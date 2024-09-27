@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class MiniJuego3 : MonoBehaviour
 {
+    public FirsPersonController playerController;
+    public ObjectInteraction objectInteraction;
+    public ItemHandler itemHandler;
+    public GameObject minigameCanvas;
+
     public Button[] arrowButtons; // Los 6 botones en el Canvas
     public Color correctColor = Color.green;
     public Color incorrectColor = Color.red;
@@ -22,11 +27,7 @@ public class MiniJuego3 : MonoBehaviour
     };
     private string[] arrowKeys = { "W", "A", "S", "D" }; // Letras para los botones
 
-    public int playerScore = 0; // Para almacenar los aciertos para más tarde
-
-    public FirsPersonController playerController;
-    public GameObject minigameCanvas;
-    public ObjectInteraction objectInteraction;
+    public int playerScore = 0; // Para almacenar los aciertos para más tarde    
 
     public void StartMinigame()
     {
@@ -98,5 +99,16 @@ public class MiniJuego3 : MonoBehaviour
         playerController.enabled = true;
         objectInteraction.Interacting = false;
         minigameCanvas.SetActive(false);
+
+        foreach (Transform child in this.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        itemHandler.PickUpEmpanadasCrudas();
+
+        objectInteraction.MesaLista = false;
+        objectInteraction.TapasOnTable = false;
+        objectInteraction.CarneOnTable = false;
     }
 }
