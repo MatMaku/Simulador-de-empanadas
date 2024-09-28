@@ -74,13 +74,13 @@ public class MiniJuego1 : MonoBehaviour
 
         Debug.Log("Corte completado!");
 
-        if (itemHandler.HasCarne())
+        if (itemHandler.hasCarne)
         {
             itemHandler.DiscardItem();
             itemHandler.PickUpCarnePicada();
         }
 
-        if (itemHandler.HasMasa())
+        if (itemHandler.hasMasa)
         {
             itemHandler.DiscardItem();
             itemHandler.PickPlanchaMasa();

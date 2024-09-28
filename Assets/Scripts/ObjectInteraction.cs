@@ -41,9 +41,18 @@ public class ObjectInteraction : MonoBehaviour
         {
             if (hit.collider.CompareTag("Interactuable"))
             {
-                objectNameText.text = hit.collider.gameObject.name;
-                objectNameText.gameObject.SetActive(true);
-                interactIcon.SetActive(true);
+                if (hit.collider.gameObject.name == "Cliente(Clone)")
+                {
+                    objectNameText.text = "Cliente";
+                    objectNameText.gameObject.SetActive(true);
+                    interactIcon.SetActive(true);
+                }
+                else
+                {
+                    objectNameText.text = hit.collider.gameObject.name;
+                    objectNameText.gameObject.SetActive(true);
+                    interactIcon.SetActive(true);
+                }
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -78,7 +87,7 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
         
-        if (interactableObject.name == "Tabla de cortar" && itemHandler.HasCarne())
+        if (interactableObject.name == "Tabla de cortar" && itemHandler.hasCarne)
         {
             Interacting = true;
             MiniJuego1 miniJuego1 = interactableObject.GetComponent<MiniJuego1>();
@@ -86,7 +95,7 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
 
-        if (interactableObject.name == "Tabla de amasar" && itemHandler.HasMasa())
+        if (interactableObject.name == "Tabla de amasar" && itemHandler.hasMasa)
         {
             Interacting = true;
             MiniJuego1 miniJuego1 = interactableObject.GetComponent<MiniJuego1>();
@@ -94,7 +103,7 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
 
-        if (interactableObject.name == "Cortadora de masa" && itemHandler.HasPlanchaMasa())
+        if (interactableObject.name == "Cortadora de masa" && itemHandler.hasPlanchaMasa)
         {
             Interacting = true;
             MiniJuego2 miniJuego2 = interactableObject.GetComponent<MiniJuego2>();
@@ -102,21 +111,21 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
 
-        if (interactableObject.name == "Mesa de preparado" && itemHandler.HasCarnePicada() && !CarneOnTable)
+        if (interactableObject.name == "Mesa de preparado" && itemHandler.hasCarnePicada && !CarneOnTable)
         {
             itemHandler.PlaceCarnePicadaOnTable(interactableObject.transform);
             CarneOnTable = true;
             return;
         }
 
-        if (interactableObject.name == "Mesa de preparado" && itemHandler.HasTapas() && !TapasOnTable)
+        if (interactableObject.name == "Mesa de preparado" && itemHandler.hasTapas && !TapasOnTable)
         {
             itemHandler.PlaceTapasOnTable(interactableObject.transform);
             TapasOnTable = true;
             return;
         }
 
-        if (interactableObject.name == "Mesa de preparado" && MesaLista)
+        if (interactableObject.name == "Mesa de preparado" && MesaLista && itemHandler.HasEspacio())
         {
             Interacting = true;
             MiniJuego3 miniJuego3 = interactableObject.GetComponent<MiniJuego3>();
@@ -124,8 +133,24 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
 
-        if (interactableObject.name == "Cliente" && itemHandler.HasEmpanadas())
+        if (interactableObject.name == "Horno")
         {
+            HornoInteraction hornoInteraction = interactableObject.GetComponent<HornoInteraction>();
+            hornoInteraction.Interact();
+            return;
+        }
+
+        if (interactableObject.name == "Mesa")
+        {
+            MesaInteraction mesaInteraction = interactableObject.GetComponent<MesaInteraction>();
+            mesaInteraction.Interact();
+            return;
+        }
+
+        if (interactableObject.name == "Cliente(Clone)" && itemHandler.hasEmpanadas)
+        {
+            ClienteManager cliente = FindObjectOfType<ClienteManager>();
+            cliente.EntregarEmpanada();
             itemHandler.GiveEmpanadas();
             return;
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ItemHandler : MonoBehaviour
 {
@@ -15,21 +16,21 @@ public class ItemHandler : MonoBehaviour
     public Transform ItemPosition;
     public TextMeshProUGUI messageText;
 
-    private GameObject CarneInstance;
-    private GameObject MasaInstance;
-    private GameObject CarnePicadaInstance;
-    private GameObject PlanchaMasaInstance;
-    private GameObject TapasInstance;
-    private GameObject EmpanadasCrudasInstance;
-    private GameObject EmpanadasInstance;
+    [HideInInspector] public GameObject CarneInstance;
+    [HideInInspector] public GameObject MasaInstance;
+    [HideInInspector] public GameObject CarnePicadaInstance;
+    [HideInInspector] public GameObject PlanchaMasaInstance;
+    [HideInInspector] public GameObject TapasInstance;
+    [HideInInspector] public GameObject EmpanadasCrudasInstance;
+    [HideInInspector] public GameObject EmpanadasInstance;
 
-    private bool hasCarne = false;
-    private bool hasMasa = false;
-    private bool hasCarnePicada = false;
-    private bool hasPlanchaMasa = false;
-    private bool hasTapas = false;
-    private bool hasEmpanadasCrudas = false;
-    private bool hasEmpanadas = false;
+    [HideInInspector] public bool hasCarne = false;
+    [HideInInspector] public bool hasMasa = false;
+    [HideInInspector] public bool hasCarnePicada = false;
+    [HideInInspector] public bool hasPlanchaMasa = false;
+    [HideInInspector] public bool hasTapas = false;
+    [HideInInspector] public bool hasEmpanadasCrudas = false;
+    [HideInInspector] public bool hasEmpanadas = false;
 
     void Start()
     {
@@ -144,24 +145,6 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
-    public void PickUpEmpanadas()
-    {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
-        {
-
-            EmpanadasInstance = Instantiate(EmpanadasPrefab, ItemPosition.position, Quaternion.identity);
-            EmpanadasInstance.transform.SetParent(ItemPosition);
-            EmpanadasInstance.transform.localPosition = Vector3.zero;
-            hasEmpanadas = true;
-
-            StartCoroutine(ShowMessage("Tienes empanadas", 2f));
-        }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
-        }
-    }
-
     public void PlaceCarnePicadaOnTable(Transform tablePosition)
     {
         if (hasCarnePicada)
@@ -234,41 +217,22 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
-    public bool HasCarne()
+    public bool HasEspacio()
     {
-        return hasCarne;
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public bool HasMasa()
+    public void ExternalMessage(string message, float delay)
     {
-        return hasMasa;
+        StartCoroutine(ShowMessage(message, delay));
     }
-
-    public bool HasCarnePicada()
-    {
-        return hasCarnePicada;
-    }
-
-    public bool HasPlanchaMasa()
-    {
-        return hasPlanchaMasa;
-    }
-
-    public bool HasTapas()
-    {
-        return hasTapas;
-    }
-
-    public bool HasEmpanadas()
-    {
-        return hasEmpanadas;
-    }
-
-    public bool HasEmpanadasCrudas()
-    {
-        return hasEmpanadasCrudas;
-    }
-
     IEnumerator ShowMessage(string message, float delay)
     {
         messageText.text = message;
