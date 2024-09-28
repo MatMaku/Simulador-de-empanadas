@@ -38,7 +38,7 @@ public class MesaInteraction : MonoBehaviour
     {
         if (itemHandler.hasCarne)
         {
-            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.4f;
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
             Destroy(itemHandler.CarneInstance);
             itemOnTable = Instantiate(carnePrefab, posicionSobreMesa, Quaternion.identity);
@@ -56,7 +56,7 @@ public class MesaInteraction : MonoBehaviour
         }
         else if (itemHandler.hasCarnePicada)
         {
-            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.35f;
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
             Destroy(itemHandler.CarnePicadaInstance);
             itemOnTable = Instantiate(carnePicadaPrefab, posicionSobreMesa, Quaternion.identity);
@@ -83,7 +83,7 @@ public class MesaInteraction : MonoBehaviour
         }
         else if (itemHandler.hasEmpanadasCrudas)
         {
-            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.4f;
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
             int Valor = itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
 
@@ -96,7 +96,7 @@ public class MesaInteraction : MonoBehaviour
         }
         else if (itemHandler.hasEmpanadas)
         {
-            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.4f;
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
             int Valor = itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
 

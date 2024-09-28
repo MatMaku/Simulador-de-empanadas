@@ -100,7 +100,7 @@ public class MiniJuego3 : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        itemHandler.PickUpEmpanadasCrudas(correctCount * 8);
+        itemHandler.PickUpEmpanadasCrudas(correctCount * 10);
 
         objectInteraction.MesaLista = false;
         objectInteraction.TapasOnTable = false;

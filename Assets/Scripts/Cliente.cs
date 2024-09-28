@@ -18,6 +18,6 @@ public class Cliente : MonoBehaviour
     public float AtenderCliente()
     {
         clienteAtendido = true;
-        return tiempoEspera;
+        return tiempoEspera / 2;
     }
 }

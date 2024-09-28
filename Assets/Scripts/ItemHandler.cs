@@ -132,7 +132,7 @@ public class ItemHandler : MonoBehaviour
             GameObject CarneEnMesa = Instantiate(CarnePicadaPrefab, new Vector3(0,0,0), Quaternion.identity);
             CarneEnMesa.transform.SetParent(tablePosition);
 
-            CarneEnMesa.transform.localPosition = new Vector3(.2f, .5f, 0f);
+            CarneEnMesa.transform.localPosition = new Vector3(.3f, .5f, 0f);
             CarneEnMesa.transform.localRotation = Quaternion.identity;
 
             
@@ -150,7 +150,7 @@ public class ItemHandler : MonoBehaviour
             GameObject TapasEnMesa = Instantiate(TapasPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             TapasEnMesa.transform.SetParent(tablePosition);
 
-            TapasEnMesa.transform.localPosition = new Vector3(-.2f, .5f, 0f);
+            TapasEnMesa.transform.localPosition = new Vector3(-.3f, .5f, 0f);
             TapasEnMesa.transform.localRotation = Quaternion.identity;
 
 
