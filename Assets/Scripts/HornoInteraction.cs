@@ -38,7 +38,7 @@ public class HornoInteraction : MonoBehaviour
 
     public void Interact()
     {
-        if (!cooking && itemHandler.hasEmpanadasCrudas) // Verifica si el jugador tiene empanada cruda
+        if (!empanadaListo && !cooking && itemHandler.hasEmpanadasCrudas) // Verifica si el jugador tiene empanada cruda
         {
             StartCooking();
         }
@@ -65,8 +65,11 @@ public class HornoInteraction : MonoBehaviour
 
     private void FinishCooking()
     {
-        Destroy(empanadaCruda); // Destruye la empanada cruda
+        int Valor = empanadaCruda.GetComponent<ValorEmpanadas>().Valor;
+
+        Destroy(empanadaCruda);
         empanadaCocinada = Instantiate(empanadaCocinadaPrefab, hornoPosition.position, Quaternion.identity);
+        empanadaCocinada.GetComponent<ValorEmpanadas>().Valor = Valor;
         empanadaCocinada.transform.SetParent(hornoPosition);
         empanadaCocinada.transform.localPosition = Vector3.zero;
 

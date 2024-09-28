@@ -25,9 +25,7 @@ public class MiniJuego3 : MonoBehaviour
         { KeyCode.S, 2 },
         { KeyCode.D, 3 }
     };
-    private string[] arrowKeys = { "W", "A", "S", "D" }; // Letras para los botones
-
-    public int playerScore = 0; // Para almacenar los aciertos para más tarde    
+    private string[] arrowKeys = { "W", "A", "S", "D" }; // Letras para los botones  
 
     public void StartMinigame()
     {
@@ -93,9 +91,6 @@ public class MiniJuego3 : MonoBehaviour
 
     void EndMinigame()
     {
-        // Guardar los aciertos en una variable para usarlos más tarde
-        playerScore = correctCount;
-
         playerController.enabled = true;
         objectInteraction.Interacting = false;
         minigameCanvas.SetActive(false);
@@ -105,7 +100,7 @@ public class MiniJuego3 : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        itemHandler.PickUpEmpanadasCrudas();
+        itemHandler.PickUpEmpanadasCrudas(correctCount * 8);
 
         objectInteraction.MesaLista = false;
         objectInteraction.TapasOnTable = false;

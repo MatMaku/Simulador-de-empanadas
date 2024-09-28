@@ -85,8 +85,12 @@ public class MesaInteraction : MonoBehaviour
         {
             Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.4f;
 
+            int Valor = itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
+
             Destroy(itemHandler.EmpanadasCrudasInstance);
             itemOnTable = Instantiate(empanadasCrudasPrefab, posicionSobreMesa, Quaternion.identity);
+            itemOnTable.GetComponent<ValorEmpanadas>().Valor = Valor;
+
             itemHandler.EmpanadasCrudasInstance = null;
             itemHandler.hasEmpanadasCrudas = false;
         }
@@ -94,8 +98,12 @@ public class MesaInteraction : MonoBehaviour
         {
             Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.4f;
 
+            int Valor = itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
+
             Destroy(itemHandler.EmpanadasInstance);
             itemOnTable = Instantiate(empanadasPrefab, posicionSobreMesa, Quaternion.identity);
+            itemOnTable.GetComponent<ValorEmpanadas>().Valor = Valor;
+
             itemHandler.EmpanadasInstance = null;
             itemHandler.hasEmpanadas = false;
         }
@@ -105,13 +113,10 @@ public class MesaInteraction : MonoBehaviour
 
     private void PickUpItem()
     {
-        // Recoge el item de la mesa y destruye el que estaba en la mesa, luego crea uno nuevo en las manos del jugador
         if (itemOnTable != null)
         {
-            string itemName = itemOnTable.name; // Obtener el nombre del item
-            Destroy(itemOnTable); // Destruir el item en la mesa
+            string itemName = itemOnTable.name; 
 
-            // Crear un nuevo item en las manos del jugador según el nombre del item en la mesa
             if (itemName == "Carne(Clone)")
             {
                 itemHandler.CarneInstance = Instantiate(carnePrefab, itemHandler.ItemPosition.position, Quaternion.identity);
@@ -124,7 +129,7 @@ public class MesaInteraction : MonoBehaviour
                 itemHandler.MasaInstance.transform.SetParent(itemHandler.ItemPosition);
                 itemHandler.hasMasa = true;
             }
-            else if (itemName == "Carneicada(Clone)")
+            else if (itemName == "Carne picada(Clone)")
             {
                 itemHandler.CarnePicadaInstance = Instantiate(carnePicadaPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
                 itemHandler.CarnePicadaInstance.transform.SetParent(itemHandler.ItemPosition);
@@ -144,18 +149,25 @@ public class MesaInteraction : MonoBehaviour
             }
             else if (itemName == "Empanadas crudas(Clone)")
             {
+                int Valor = itemOnTable.GetComponent<ValorEmpanadas>().Valor;
+
                 itemHandler.EmpanadasCrudasInstance = Instantiate(empanadasCrudasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
                 itemHandler.EmpanadasCrudasInstance.transform.SetParent(itemHandler.ItemPosition);
                 itemHandler.hasEmpanadasCrudas = true;
             }
             else if (itemName == "Empanadas(Clone)")
             {
+                int Valor = itemOnTable.GetComponent<ValorEmpanadas>().Valor;
+
                 itemHandler.EmpanadasInstance = Instantiate(empanadasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.EmpanadasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
                 itemHandler.EmpanadasInstance.transform.SetParent(itemHandler.ItemPosition);
                 itemHandler.hasEmpanadas = true;
             }
 
-            itemOnTable = null; // Limpiar la referencia en la mesa
+            Destroy(itemOnTable);
+            itemOnTable = null;
         }
     }
 }

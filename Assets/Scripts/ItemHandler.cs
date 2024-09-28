@@ -127,15 +127,16 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
-    public void PickUpEmpanadasCrudas()
+    public void PickUpEmpanadasCrudas(int Valor)
     {
         if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
         {
-
             EmpanadasCrudasInstance = Instantiate(EmpanadasCrudasPrefab, ItemPosition.position, Quaternion.identity);
             EmpanadasCrudasInstance.transform.SetParent(ItemPosition);
             EmpanadasCrudasInstance.transform.localPosition = Vector3.zero;
             hasEmpanadasCrudas = true;
+
+            EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
 
             StartCoroutine(ShowMessage("Tienes empanadas crudas", 2f));
         }
