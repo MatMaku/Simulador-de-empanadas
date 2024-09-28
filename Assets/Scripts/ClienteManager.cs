@@ -62,7 +62,10 @@ public class ClienteManager : MonoBehaviour
     void CalcularPropina(float tiempoEspera, int ValorEmpanadas)
     {
         int propina = Mathf.Max(0, ValorEmpanadas - Mathf.RoundToInt(tiempoEspera));
-        propinaTotal += propina;
-        propinaTexto.text = "Propina: $" + propinaTotal.ToString();
+        if (propina > 0)
+        {
+            propinaTotal += propina;
+            propinaTexto.text = "Propina: $" + propinaTotal.ToString();
+        }
     }
 }

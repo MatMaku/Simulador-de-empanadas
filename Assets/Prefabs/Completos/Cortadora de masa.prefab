@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4701337043179441500
+--- !u!1 &4741860680501413314
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1896261853196109901}
-  - component: {fileID: 7305521364081344356}
-  - component: {fileID: 8094405474610386435}
-  - component: {fileID: 5787868355060762027}
-  - component: {fileID: -954843296258644947}
-  m_Layer: 0
-  m_Name: Empanadas
-  m_TagString: Untagged
+  - component: {fileID: 3026651702645947645}
+  - component: {fileID: 4125248463758262959}
+  - component: {fileID: 2321691221582000179}
+  - component: {fileID: 4318168189561292350}
+  - component: {fileID: 1839063077949835531}
+  m_Layer: 3
+  m_Name: Cortadora de masa
+  m_TagString: Interactuable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1896261853196109901
+--- !u!4 &3026651702645947645
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701337043179441500}
+  m_GameObject: {fileID: 4741860680501413314}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.75, z: 0.5}
-  m_LocalScale: {x: 0.2, y: 0.1, z: 0.3}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: 0.4, z: 2.2}
+  m_LocalScale: {x: 0.8, y: 0.7, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7305521364081344356
+--- !u!33 &4125248463758262959
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701337043179441500}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8094405474610386435
+  m_GameObject: {fileID: 4741860680501413314}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2321691221582000179
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701337043179441500}
+  m_GameObject: {fileID: 4741860680501413314}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a291ab42e9cfb194fa1ccd03f4c68b12, type: 2}
+  - {fileID: 2100000, guid: d05bde7638ecd5041b89661e24d655a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,13 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5787868355060762027
-CapsuleCollider:
+--- !u!65 &4318168189561292350
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701337043179441500}
+  m_GameObject: {fileID: 4741860680501413314}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -103,21 +103,31 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-954843296258644947
+--- !u!114 &1839063077949835531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701337043179441500}
+  m_GameObject: {fileID: 4741860680501413314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 729c71072c791054db8b8c8f2671812a, type: 3}
+  m_Script: {fileID: 11500000, guid: db64be7cc74951647be3e8966d065c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Valor: 0
+  playerController: {fileID: 0}
+  objectInteraction: {fileID: 0}
+  itemHandler: {fileID: 0}
+  movingIndicator: {fileID: 0}
+  progressBar: {fileID: 0}
+  markers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  buttonText: {fileID: 0}
+  indicatorSpeed: 100
+  minigameCanvas: {fileID: 0}
+  totalMarkers: 3

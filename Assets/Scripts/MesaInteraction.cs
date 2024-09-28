@@ -47,7 +47,7 @@ public class MesaInteraction : MonoBehaviour
         }
         else if (itemHandler.hasMasa)
         {
-            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.4f;
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
             Destroy(itemHandler.MasaInstance);
             itemOnTable = Instantiate(masaPrefab, posicionSobreMesa, Quaternion.identity);
@@ -141,7 +141,7 @@ public class MesaInteraction : MonoBehaviour
                 itemHandler.PlanchaMasaInstance.transform.SetParent(itemHandler.ItemPosition);
                 itemHandler.hasPlanchaMasa = true;
             }
-            else if (itemName == "Tapas(Clone)")
+            else if (itemName == "Tapas de empanada(Clone)")
             {
                 itemHandler.TapasInstance = Instantiate(tapasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
                 itemHandler.TapasInstance.transform.SetParent(itemHandler.ItemPosition);
