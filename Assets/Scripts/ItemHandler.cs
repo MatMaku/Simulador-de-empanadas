@@ -31,6 +31,7 @@ public class ItemHandler : MonoBehaviour
     [HideInInspector] public bool hasTapas = false;
     [HideInInspector] public bool hasEmpanadasCrudas = false;
     [HideInInspector] public bool hasEmpanadas = false;
+    [HideInInspector] public bool PrimerClienteAtendido = false;
 
     void Start()
     {
@@ -49,10 +50,6 @@ public class ItemHandler : MonoBehaviour
 
             StartCoroutine(ShowMessage("Recogiste carne", 2f));
         }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
-        }
     }
 
     public void PickUpMasa()
@@ -66,10 +63,6 @@ public class ItemHandler : MonoBehaviour
             hasMasa = true;
 
             StartCoroutine(ShowMessage("Recogiste masa", 2f));
-        }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
         }
     }
 
@@ -85,10 +78,6 @@ public class ItemHandler : MonoBehaviour
 
             StartCoroutine(ShowMessage("Tienes carne picada", 2f));
         }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
-        }
     }
 
     public void PickPlanchaMasa()
@@ -102,10 +91,6 @@ public class ItemHandler : MonoBehaviour
             hasPlanchaMasa = true;
 
             StartCoroutine(ShowMessage("Tienes plancha de masa", 2f));
-        }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
         }
     }
 
@@ -121,10 +106,6 @@ public class ItemHandler : MonoBehaviour
 
             StartCoroutine(ShowMessage("Tienes tapas de empanada", 2f));
         }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
-        }
     }
 
     public void PickUpEmpanadasCrudas(int Valor)
@@ -139,10 +120,6 @@ public class ItemHandler : MonoBehaviour
             EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
 
             StartCoroutine(ShowMessage("Tienes empanadas crudas", 2f));
-        }
-        else
-        {
-            StartCoroutine(ShowMessage("Tienes las manos ocupadas", 2f));
         }
     }
 
@@ -188,6 +165,7 @@ public class ItemHandler : MonoBehaviour
         {
             Destroy(EmpanadasInstance);
             hasEmpanadas = false;
+            PrimerClienteAtendido = true;
 
             StartCoroutine(ShowMessage("Empanadas entregadas", 2f));
         }
