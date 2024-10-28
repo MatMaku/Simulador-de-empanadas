@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class TutorialManager : MonoBehaviour
 
     private ItemHandler itemHandler;
     private ObjectInteraction objectInteraction;
-    private ClienteManager clienteManager;
+    private GameManager clienteManager;
 
     [HideInInspector]public string[] mensajes = 
         {
@@ -35,7 +36,7 @@ public class TutorialManager : MonoBehaviour
     {
         itemHandler = FindObjectOfType<ItemHandler>();
         objectInteraction = FindObjectOfType<ObjectInteraction>();
-        clienteManager = FindObjectOfType<ClienteManager>();
+        clienteManager = FindObjectOfType<GameManager>();
 
         clienteManager.tiempoSpawn = 1f;
         clienteManager.limiteClientes = 1;
@@ -152,10 +153,6 @@ public class TutorialManager : MonoBehaviour
         mensajeTutorial.text = mensajes[mensajes.Length - 1];
         yield return new WaitForSeconds(tiempoMensaje);
 
-        clienteManager.tiempoSpawn = 20f;
-        clienteManager.limiteClientes = 3;
-
-        mensajeTutorial.enabled = false;
-        Background.enabled = false;
+        SceneManager.LoadScene("MenuInicio");
     }
 }

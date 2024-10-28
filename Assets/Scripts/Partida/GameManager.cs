@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ClienteManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public GameObject clientePrefab;
     public Transform[] posicionesFila;
@@ -12,9 +12,17 @@ public class ClienteManager : MonoBehaviour
 
     private Queue<GameObject> filaClientes = new Queue<GameObject>();
     private float timerSpawn;
+    private DatosJuego datosJuego;
 
     public TextMeshProUGUI propinaTexto;
-    private int propinaTotal = 0;
+    public int propinaTotal = 0;
+
+    private void Start()
+    {
+        datosJuego = SistemaGuardado.CargarDatos();
+        propinaTotal = datosJuego.propinasAcumuladas;
+        propinaTexto.text = "Propina: $" + propinaTotal.ToString();
+    }
 
     void Update()
     {

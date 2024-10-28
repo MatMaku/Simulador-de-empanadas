@@ -17,6 +17,12 @@ public class MiniJuego1 : MonoBehaviour
     private bool isCutting = false;
 
     private KeyCode selectedKey;
+    private DatosJuego datosJuego;
+
+    private void Start()
+    {
+        datosJuego = SistemaGuardado.CargarDatos();
+    }
 
     private List<KeyCode> possibleKeys = new List<KeyCode>
     {
@@ -46,6 +52,19 @@ public class MiniJuego1 : MonoBehaviour
 
     public void StartMinigame()
     {
+        if (itemHandler.hasCarne && datosJuego.MejoraCuchillo)
+        {
+            progressPerPress = 0.3f;
+        }
+        else if (itemHandler.hasMasa && datosJuego.MejoraPalo)
+        {
+            progressPerPress = 0.3f;
+        }
+        else
+        {
+            progressPerPress = 0.1f;
+        }
+
         selectedKey = possibleKeys[Random.Range(0, possibleKeys.Count)];
         PushButtonText.text = selectedKey.ToString();
 

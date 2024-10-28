@@ -149,7 +149,7 @@ public class ObjectInteraction : MonoBehaviour
 
         if (interactableObject.name == "Cliente(Clone)" && itemHandler.hasEmpanadas)
         {
-            ClienteManager cliente = FindObjectOfType<ClienteManager>();
+            GameManager cliente = FindObjectOfType<GameManager>();
             cliente.EntregarEmpanada(itemHandler.EmpanadasInstance.GetComponent<ValorEmpanadas>().Valor);
             itemHandler.GiveEmpanadas();
             return;

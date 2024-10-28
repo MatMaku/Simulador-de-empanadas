@@ -15,11 +15,23 @@ public class HornoInteraction : MonoBehaviour
     private float remainingTime;
 
     private ItemHandler itemHandler;
+    private DatosJuego datosJuego;
 
     void Start()
     {
-        itemHandler = FindObjectOfType<ItemHandler>(); // Para obtener el manejador de items
-        cookTimeText.gameObject.SetActive(false); // Desactivar el texto al inicio
+        datosJuego = SistemaGuardado.CargarDatos();
+
+        itemHandler = FindObjectOfType<ItemHandler>(); 
+        cookTimeText.gameObject.SetActive(false);
+
+        if (datosJuego.MejoraCocina)
+        {
+            cookTime = 5f;
+        }
+        else
+        {
+            cookTime = 10f;
+        }
     }
 
     void Update()
