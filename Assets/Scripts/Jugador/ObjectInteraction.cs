@@ -81,6 +81,12 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
 
+        if (interactableObject.name == "Bebida")
+        {
+            itemHandler.PickUpBebida();
+            return;
+        }
+
         if (interactableObject.name == "Basura")
         {
             itemHandler.DiscardItem();
@@ -147,12 +153,36 @@ public class ObjectInteraction : MonoBehaviour
             return;
         }
 
-        if (interactableObject.name == "Cliente(Clone)" && itemHandler.hasEmpanadas)
+        if (interactableObject.name == "Cliente(Clone)")
         {
-            GameManager cliente = FindObjectOfType<GameManager>();
-            cliente.EntregarEmpanada(itemHandler.EmpanadasInstance.GetComponent<ValorEmpanadas>().Valor);
-            itemHandler.GiveEmpanadas();
-            return;
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            Cliente cliente = interactableObject.GetComponent<Cliente>();
+
+            // Verifica si tienes empanadas para entregar
+            if (itemHandler.hasEmpanadas)
+            {
+                bool empanadaEntregada = gameManager.EntregarItemAlCliente("empanada", itemHandler.EmpanadasInstance.GetComponent<ValorEmpanadas>().Valor);
+
+                // Solo elimina la empanada si el cliente la aceptó
+                if (empanadaEntregada)
+                {
+                    itemHandler.GiveEmpanadas(); // Actualiza el inventario de empanadas en el itemHandler
+                }
+                return;
+            }
+
+            // Verifica si tienes bebidas para entregar
+            if (itemHandler.hasBebida)
+            {
+                bool bebidaEntregada = gameManager.EntregarItemAlCliente("bebida", 10);
+
+                // Solo elimina la bebida si el cliente la aceptó
+                if (bebidaEntregada)
+                {
+                    itemHandler.GiveBebidas(); // Actualiza el inventario de bebidas en el itemHandler
+                }
+                return;
+            }
         }
     }
 }

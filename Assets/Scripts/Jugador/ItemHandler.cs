@@ -13,6 +13,7 @@ public class ItemHandler : MonoBehaviour
     public GameObject TapasPrefab;
     public GameObject EmpanadasCrudasPrefab;
     public GameObject EmpanadasPrefab;
+    public GameObject BebidaPrefab;
     public Transform ItemPosition;
     public TextMeshProUGUI messageText;
 
@@ -23,6 +24,7 @@ public class ItemHandler : MonoBehaviour
     [HideInInspector] public GameObject TapasInstance;
     [HideInInspector] public GameObject EmpanadasCrudasInstance;
     [HideInInspector] public GameObject EmpanadasInstance;
+    [HideInInspector] public GameObject BebidaInstance;
 
     [HideInInspector] public bool hasCarne = false;
     [HideInInspector] public bool hasMasa = false;
@@ -31,6 +33,7 @@ public class ItemHandler : MonoBehaviour
     [HideInInspector] public bool hasTapas = false;
     [HideInInspector] public bool hasEmpanadasCrudas = false;
     [HideInInspector] public bool hasEmpanadas = false;
+    [HideInInspector] public bool hasBebida = false;
     [HideInInspector] public bool PrimerClienteAtendido = false;
 
     void Start()
@@ -40,7 +43,7 @@ public class ItemHandler : MonoBehaviour
 
     public void PickUpCarne()
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
             
             CarneInstance = Instantiate(CarnePrefab, ItemPosition.position, Quaternion.identity);
@@ -54,7 +57,7 @@ public class ItemHandler : MonoBehaviour
 
     public void PickUpMasa()
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
 
             MasaInstance = Instantiate(MasaPrefab, ItemPosition.position, Quaternion.identity);
@@ -68,7 +71,7 @@ public class ItemHandler : MonoBehaviour
 
     public void PickUpCarnePicada()
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
 
             CarnePicadaInstance = Instantiate(CarnePicadaPrefab, ItemPosition.position, Quaternion.identity);
@@ -82,7 +85,7 @@ public class ItemHandler : MonoBehaviour
 
     public void PickPlanchaMasa()
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
 
             PlanchaMasaInstance = Instantiate(PlanchaMasaPrefab, ItemPosition.position, Quaternion.identity);
@@ -96,7 +99,7 @@ public class ItemHandler : MonoBehaviour
 
     public void PickUpTapas()
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
 
             TapasInstance = Instantiate(TapasPrefab, ItemPosition.position, Quaternion.identity);
@@ -110,7 +113,7 @@ public class ItemHandler : MonoBehaviour
 
     public void PickUpEmpanadasCrudas(int Valor)
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
             EmpanadasCrudasInstance = Instantiate(EmpanadasCrudasPrefab, ItemPosition.position, Quaternion.identity);
             EmpanadasCrudasInstance.transform.SetParent(ItemPosition);
@@ -120,6 +123,19 @@ public class ItemHandler : MonoBehaviour
             EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
 
             StartCoroutine(ShowMessage("Tienes empanadas crudas", 2f));
+        }
+    }
+
+    public void PickUpBebida()
+    {
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
+        {
+            BebidaInstance = Instantiate(BebidaPrefab, ItemPosition.position, Quaternion.identity);
+            BebidaInstance.transform.SetParent(ItemPosition);
+            BebidaInstance.transform.localPosition = Vector3.zero;
+            hasBebida = true;
+
+            StartCoroutine(ShowMessage("Tienes bebida", 2f));
         }
     }
 
@@ -171,9 +187,20 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
+    public void GiveBebidas()
+    {
+        if (hasBebida)
+        {
+            Destroy(BebidaInstance);
+            hasBebida = false;
+
+            StartCoroutine(ShowMessage("Bebida entregada", 2f));
+        }
+    }
+
     public void DiscardItem()
     {
-        if (hasCarne || hasMasa || hasCarnePicada || hasPlanchaMasa || hasTapas || hasEmpanadas || hasEmpanadasCrudas)
+        if (hasCarne || hasMasa || hasCarnePicada || hasPlanchaMasa || hasTapas || hasEmpanadas || hasEmpanadasCrudas || hasBebida)
         {
             Destroy(CarneInstance);
             Destroy(MasaInstance);
@@ -182,6 +209,7 @@ public class ItemHandler : MonoBehaviour
             Destroy(TapasInstance);
             Destroy(EmpanadasInstance);
             Destroy(EmpanadasCrudasInstance);
+            Destroy(BebidaInstance);
             hasCarne = false;
             hasMasa = false;
             hasCarnePicada = false;
@@ -189,6 +217,7 @@ public class ItemHandler : MonoBehaviour
             hasTapas = false;
             hasEmpanadas = false;
             hasEmpanadasCrudas = false;
+            hasBebida = false;
         }
         else
         {
@@ -198,7 +227,7 @@ public class ItemHandler : MonoBehaviour
 
     public bool HasEspacio()
     {
-        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas)
+        if (!hasCarne && !hasMasa && !hasCarnePicada && !hasPlanchaMasa && !hasTapas && !hasEmpanadas && !hasEmpanadasCrudas && !hasBebida)
         {
             return true;
         }
