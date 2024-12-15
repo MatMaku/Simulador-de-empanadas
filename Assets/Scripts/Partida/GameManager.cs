@@ -16,23 +16,21 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI propinaTexto;
     public int propinaTotal = 0;
-    
+
     private void Start()
     {
         datosJuego = SistemaGuardado.CargarDatos();
         propinaTotal = datosJuego.propinasAcumuladas;
         propinaTexto.text = "Propina: $" + propinaTotal.ToString();
-        timerSpawn = tiempoSpawn; // Iniciar el temporizador en el valor de tiempo de spawn para que comience inmediatamente
+        timerSpawn = tiempoSpawn;
     }
 
     private void Update()
     {
-        // Solo crear clientes si el número actual en la fila es menor que el límite
         if (filaClientes.Count < limiteClientes)
         {
             timerSpawn += Time.deltaTime;
 
-            // Instanciar un cliente cuando se cumpla el tiempo
             if (timerSpawn >= tiempoSpawn)
             {
                 SpawnCliente();
@@ -41,19 +39,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Método para instanciar un cliente y añadirlo a la fila
     private void SpawnCliente()
     {
-        // Crear el cliente solo si hay espacio en la fila
         if (filaClientes.Count < limiteClientes)
         {
             GameObject nuevoCliente = Instantiate(clientePrefab, posicionesFila[filaClientes.Count].position, Quaternion.identity);
-            nuevoCliente.GetComponent<Cliente>().AsignarPedido(Random.Range(0, 3)); // Asigna un pedido aleatorio
+            Cliente clienteScript = nuevoCliente.GetComponent<Cliente>();
+            clienteScript.AsignarPedido(Random.Range(0, 8));
+            clienteScript.OnClienteEnojado += ClienteEnojado; // Subscribirse al evento
             filaClientes.Enqueue(nuevoCliente);
         }
     }
 
-    // Método para eliminar el primer cliente y mover los demás hacia adelante
+    private void ClienteEnojado(Cliente cliente)
+    {
+        if (filaClientes.Count > 0 && filaClientes.Peek().GetComponent<Cliente>() == cliente)
+        {
+            filaClientes.Dequeue();
+            propinaTotal = Mathf.Max(0, propinaTotal - 10); // Reducir la propina
+            propinaTexto.text = "Propina: $" + propinaTotal.ToString();
+            Destroy(cliente.gameObject);
+            ReorganizarFila();
+        }
+    }
+
     public bool EntregarItemAlCliente(string tipoItem, int valorItem)
     {
         if (filaClientes.Count > 0)
@@ -61,22 +70,21 @@ public class GameManager : MonoBehaviour
             GameObject primerCliente = filaClientes.Peek();
             Cliente clienteScript = primerCliente.GetComponent<Cliente>();
 
-            // Verificar si el cliente necesita el ítem
             if (clienteScript.RecibirItem(tipoItem))
             {
-                // Si el pedido está completado, eliminamos el cliente de la fila
                 if (clienteScript.PedidoCompletado())
                 {
                     float tiempoEspera = clienteScript.AtenderCliente();
                     CalcularPropina(tiempoEspera, valorItem);
+                    clienteScript.OnClienteEnojado -= ClienteEnojado; // Desuscribirse del evento
                     filaClientes.Dequeue();
                     Destroy(primerCliente);
                     ReorganizarFila();
                 }
-                return true; // Ítem fue aceptado
+                return true;
             }
         }
-        return false; // Ítem no fue necesario
+        return false;
     }
 
     private void ReorganizarFila()

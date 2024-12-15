@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3285365087757107179}
   - component: {fileID: 8744539608962029407}
   m_Layer: 0
-  m_Name: Empanadas crudas
+  m_Name: Empanadas carne crudas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

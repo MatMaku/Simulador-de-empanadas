@@ -9,8 +9,15 @@ public class MesaInteraction : MonoBehaviour
     public GameObject carnePicadaPrefab; // Prefab para instanciar carne picada
     public GameObject planchaMasaPrefab; // Prefab para instanciar plancha de masa
     public GameObject tapasPrefab; // Prefab para instanciar tapas
-    public GameObject empanadasCrudasPrefab; // Prefab para instanciar empanadas crudas
-    public GameObject empanadasPrefab; // Prefab para instanciar empanadas cocidas
+    public GameObject empanadasCarneCrudasPrefab;
+    public GameObject empanadasCarnePrefab;
+    public GameObject empanadasJyQCrudasPrefab;
+    public GameObject empanadasJyQPrefab;
+    public GameObject jamonPrefab;
+    public GameObject quesoPrefab;
+    public GameObject jyqPrefab;
+    public GameObject PizzaCrudaPrefab;
+    public GameObject PizzaPrefab;
 
     private GameObject itemOnTable; // Almacena el item en la mesa
     private ItemHandler itemHandler; // Referencia al manejador de items
@@ -81,31 +88,102 @@ public class MesaInteraction : MonoBehaviour
             itemHandler.TapasInstance = null;
             itemHandler.hasTapas = false;
         }
-        else if (itemHandler.hasEmpanadasCrudas)
+        else if (itemHandler.hasEmpanadasCarneCrudas)
         {
             Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
-            int Valor = itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
+            int Valor = itemHandler.EmpanadasCarneCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
 
-            Destroy(itemHandler.EmpanadasCrudasInstance);
-            itemOnTable = Instantiate(empanadasCrudasPrefab, posicionSobreMesa, Quaternion.identity);
+            Destroy(itemHandler.EmpanadasCarneCrudasInstance);
+            itemOnTable = Instantiate(empanadasCarneCrudasPrefab, posicionSobreMesa, Quaternion.identity);
             itemOnTable.GetComponent<ValorEmpanadas>().Valor = Valor;
 
-            itemHandler.EmpanadasCrudasInstance = null;
-            itemHandler.hasEmpanadasCrudas = false;
+            itemHandler.EmpanadasCarneCrudasInstance = null;
+            itemHandler.hasEmpanadasCarneCrudas = false;
         }
-        else if (itemHandler.hasEmpanadas)
+        else if (itemHandler.hasEmpanadasCarne)
         {
             Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
 
-            int Valor = itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
+            int Valor = itemHandler.EmpanadasCarneInstance.GetComponent<ValorEmpanadas>().Valor;
 
-            Destroy(itemHandler.EmpanadasInstance);
-            itemOnTable = Instantiate(empanadasPrefab, posicionSobreMesa, Quaternion.identity);
+            Destroy(itemHandler.EmpanadasCarneInstance);
+            itemOnTable = Instantiate(empanadasCarnePrefab, posicionSobreMesa, Quaternion.identity);
             itemOnTable.GetComponent<ValorEmpanadas>().Valor = Valor;
 
-            itemHandler.EmpanadasInstance = null;
-            itemHandler.hasEmpanadas = false;
+            itemHandler.EmpanadasCarneInstance = null;
+            itemHandler.hasEmpanadasCarne = false;
+        }
+        else if (itemHandler.hasEmpanadasJyQCrudas)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            int Valor = itemHandler.EmpanadasJyQCrudasInstance.GetComponent<ValorEmpanadas>().Valor;
+
+            Destroy(itemHandler.EmpanadasJyQCrudasInstance);
+            itemOnTable = Instantiate(empanadasJyQCrudasPrefab, posicionSobreMesa, Quaternion.identity);
+            itemOnTable.GetComponent<ValorEmpanadas>().Valor = Valor;
+
+            itemHandler.EmpanadasJyQCrudasInstance = null;
+            itemHandler.hasEmpanadasJyQCrudas = false;
+        }
+        else if (itemHandler.hasEmpanadasJyQ)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            int Valor = itemHandler.EmpanadasJyQInstance.GetComponent<ValorEmpanadas>().Valor;
+
+            Destroy(itemHandler.EmpanadasJyQInstance);
+            itemOnTable = Instantiate(empanadasJyQPrefab, posicionSobreMesa, Quaternion.identity);
+            itemOnTable.GetComponent<ValorEmpanadas>().Valor = Valor;
+
+            itemHandler.EmpanadasJyQInstance = null;
+            itemHandler.hasEmpanadasJyQ = false;
+        }
+        else if (itemHandler.hasJamon)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            Destroy(itemHandler.JamonInstance);
+            itemOnTable = Instantiate(jamonPrefab, posicionSobreMesa, Quaternion.identity);
+            itemHandler.JamonInstance = null;
+            itemHandler.hasJamon = false;
+        }
+        else if (itemHandler.hasQueso)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            Destroy(itemHandler.QuesoInstance);
+            itemOnTable = Instantiate(quesoPrefab, posicionSobreMesa, Quaternion.identity);
+            itemHandler.QuesoInstance = null;
+            itemHandler.hasQueso = false;
+        }
+        else if (itemHandler.hasJyQ)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            Destroy(itemHandler.JyQInstance);
+            itemOnTable = Instantiate(jyqPrefab, posicionSobreMesa, Quaternion.identity);
+            itemHandler.JyQInstance = null;
+            itemHandler.hasJyQ = false;
+        }
+        else if (itemHandler.hasPizzaCruda)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            Destroy(itemHandler.PizzaCrudaInstance);
+            itemOnTable = Instantiate(PizzaCrudaPrefab, posicionSobreMesa, Quaternion.identity);
+            itemHandler.PizzaCrudaInstance = null;
+            itemHandler.hasPizzaCruda = false;
+        }
+        else if (itemHandler.hasPizza)
+        {
+            Vector3 posicionSobreMesa = transform.position + Vector3.up * 0.3f;
+
+            Destroy(itemHandler.PizzaInstance);
+            itemOnTable = Instantiate(PizzaPrefab, posicionSobreMesa, Quaternion.identity);
+            itemHandler.PizzaInstance = null;
+            itemHandler.hasPizza = false;
         }
 
         itemOnTable.transform.SetParent(transform);
@@ -147,23 +225,71 @@ public class MesaInteraction : MonoBehaviour
                 itemHandler.TapasInstance.transform.SetParent(itemHandler.ItemPosition);
                 itemHandler.hasTapas = true;
             }
-            else if (itemName == "Empanadas crudas(Clone)")
+            else if (itemName == "Empanadas carne crudas(Clone)")
             {
                 int Valor = itemOnTable.GetComponent<ValorEmpanadas>().Valor;
 
-                itemHandler.EmpanadasCrudasInstance = Instantiate(empanadasCrudasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
-                itemHandler.EmpanadasCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
-                itemHandler.EmpanadasCrudasInstance.transform.SetParent(itemHandler.ItemPosition);
-                itemHandler.hasEmpanadasCrudas = true;
+                itemHandler.EmpanadasCarneCrudasInstance = Instantiate(empanadasCarneCrudasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.EmpanadasCarneCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
+                itemHandler.EmpanadasCarneCrudasInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasEmpanadasCarneCrudas = true;
             }
-            else if (itemName == "Empanadas(Clone)")
+            else if (itemName == "Empanadas carne(Clone)")
             {
                 int Valor = itemOnTable.GetComponent<ValorEmpanadas>().Valor;
 
-                itemHandler.EmpanadasInstance = Instantiate(empanadasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
-                itemHandler.EmpanadasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
-                itemHandler.EmpanadasInstance.transform.SetParent(itemHandler.ItemPosition);
-                itemHandler.hasEmpanadas = true;
+                itemHandler.EmpanadasCarneInstance = Instantiate(empanadasCarnePrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.EmpanadasCarneInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
+                itemHandler.EmpanadasCarneInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasEmpanadasCarne = true;
+            }
+            else if (itemName == "Empanadas JyQ crudas(Clone)")
+            {
+                int Valor = itemOnTable.GetComponent<ValorEmpanadas>().Valor;
+
+                itemHandler.EmpanadasJyQCrudasInstance = Instantiate(empanadasJyQCrudasPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.EmpanadasJyQCrudasInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
+                itemHandler.EmpanadasJyQCrudasInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasEmpanadasJyQCrudas = true;
+            }
+            else if (itemName == "Empanadas JyQ(Clone)")
+            {
+                int Valor = itemOnTable.GetComponent<ValorEmpanadas>().Valor;
+
+                itemHandler.EmpanadasJyQInstance = Instantiate(empanadasJyQPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.EmpanadasJyQInstance.GetComponent<ValorEmpanadas>().Valor = Valor;
+                itemHandler.EmpanadasJyQInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasEmpanadasJyQ = true;
+            }
+            else if (itemName == "Jamon(Clone)")
+            {
+                itemHandler.JamonInstance = Instantiate(jamonPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.JamonInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasJamon = true;
+            }
+            else if (itemName == "Queso(Clone)")
+            {
+                itemHandler.QuesoInstance = Instantiate(quesoPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.QuesoInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasQueso = true;
+            }
+            else if (itemName == "JyQ(Clone)")
+            {
+                itemHandler.JyQInstance = Instantiate(jyqPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.JyQInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasJyQ = true;
+            }
+            else if (itemName == "Pizza cruda(Clone)")
+            {
+                itemHandler.PizzaCrudaInstance = Instantiate(PizzaCrudaPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.PizzaCrudaInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasPizzaCruda = true;
+            }
+            else if (itemName == "Pizza(Clone)")
+            {
+                itemHandler.PizzaInstance = Instantiate(PizzaPrefab, itemHandler.ItemPosition.position, Quaternion.identity);
+                itemHandler.PizzaInstance.transform.SetParent(itemHandler.ItemPosition);
+                itemHandler.hasPizza = true;
             }
 
             Destroy(itemOnTable);

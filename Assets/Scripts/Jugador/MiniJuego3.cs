@@ -18,6 +18,8 @@ public class MiniJuego3 : MonoBehaviour
     private List<int> arrowSequence; // Lista que contiene la secuencia de flechas (0 = W, 1 = A, 2 = S, 3 = D)
     private int currentIndex = 0;
     private int correctCount = 0; // Aciertos
+    private int Devolución;
+
     private Dictionary<KeyCode, int> arrowKeyMap = new Dictionary<KeyCode, int>
     {
         { KeyCode.W, 0 },
@@ -27,8 +29,9 @@ public class MiniJuego3 : MonoBehaviour
     };
     private string[] arrowKeys = { "W", "A", "S", "D" }; // Letras para los botones  
 
-    public void StartMinigame()
+    public void StartMinigame(int devolución)
     {
+        Devolución = devolución;
         minigameCanvas.SetActive(true);
         playerController.enabled = false;
 
@@ -100,10 +103,36 @@ public class MiniJuego3 : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        itemHandler.PickUpEmpanadasCrudas(correctCount * 10);
+        switch (Devolución)
+        {
+            case 0:
+                itemHandler.PickUpEmpanadasCarneCrudas(correctCount * 10);
 
-        objectInteraction.MesaLista = false;
-        objectInteraction.TapasOnTable = false;
-        objectInteraction.CarneOnTable = false;
+                objectInteraction.MesaEmpanadaCarneLista = false;
+                objectInteraction.TapasOnTable = false;
+                objectInteraction.CarneOnTable = false;
+                break;
+            case 1:
+                itemHandler.PickUpJyQ();
+
+                objectInteraction.MesaJyQLista = false;
+                objectInteraction.JamonOnTable = false;
+                objectInteraction.QuesoOnTable = false;
+                break;
+            case 2:
+                itemHandler.PickUpEmpanadasJyQCrudas(correctCount * 10);
+
+                objectInteraction.MesaEmpanadaJyQLista = false;
+                objectInteraction.JyQOnTable = false;
+                objectInteraction.TapasOnTable = false;
+                break;
+            case 3:
+                itemHandler.PickUpPizza(correctCount * 10);
+
+                objectInteraction.MesaPizzaLista = false;
+                objectInteraction.QuesoOnTable = false;
+                objectInteraction.PlanchaOnTable = false;
+                break;
+        }
     }
 }

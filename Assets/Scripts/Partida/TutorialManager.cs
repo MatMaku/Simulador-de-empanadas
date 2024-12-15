@@ -23,7 +23,7 @@ public class TutorialManager : MonoBehaviour
         "Para empezar recoge algo de carne de la heladera",
         "Ahora cortala en la tabla de cortar",
         "Perfecto, ahora dejala en la mesa de preparado y encarguemonos de la masa",
-        "Recoge un bollo de masa, estan al lado de la heladera",
+        "Recoge un bollo de masa, estan en la heladera",
         "Ahora amasemoslo en la tabla de amasar",
         "Y por ultimo cortemos las tapas en la cortadora",
         "Ahora junta todo en la mesa de preparado",
@@ -36,10 +36,6 @@ public class TutorialManager : MonoBehaviour
     {
         itemHandler = FindObjectOfType<ItemHandler>();
         objectInteraction = FindObjectOfType<ObjectInteraction>();
-        clienteManager = FindObjectOfType<GameManager>();
-
-        clienteManager.tiempoSpawn = 1f;
-        clienteManager.limiteClientes = 1;
 
         StartCoroutine(MostrarMensajeBienvenida());
     }
@@ -111,7 +107,7 @@ public class TutorialManager : MonoBehaviour
 
         if (tareaActual == 7)
         {
-            if (itemHandler.hasEmpanadasCrudas)
+            if (itemHandler.hasEmpanadasCarneCrudas)
             {
                 SiguienteTarea();
             }
@@ -119,7 +115,7 @@ public class TutorialManager : MonoBehaviour
 
         if (tareaActual == 8)
         {
-            if (itemHandler.hasEmpanadas)
+            if (itemHandler.hasEmpanadasCarne)
             {
                 SiguienteTarea();
             }
