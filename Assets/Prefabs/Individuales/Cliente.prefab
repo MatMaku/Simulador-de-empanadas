@@ -121,9 +121,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   empanadasPedidas: 0
   bebidasPedidas: 0
+  empanadasJyQPedidas: 0
+  pizzasPedidas: 0
   pedidoTexto: {fileID: 8491510822274681788}
   tiempoEspera: 0
-  pacienciaMaxima: 60
+  pacienciaMaxima: 80
 --- !u!1 &8458790732343205381
 GameObject:
   m_ObjectHideFlags: 0
